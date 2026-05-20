@@ -1,0 +1,30 @@
+check_list_sorted([H|T]):-
+    check_list_sorted(H, T).
+check_list_sorted(_, []).
+check_list_sorted(H, [Second|T]):-
+    H >= Second,
+    check_list_sorted(Second, T).
+
+sort_two(X, Y, Min, Max) :-
+    X > Y,
+    !,
+    Min = Y, Max = X.
+sort_two(X, Y, X, Y).
+
+buble_sort(List, Res):-
+    check_list_sorted(List) ->  
+    	Res = List;
+    buble_sort([], List, Res).
+    
+    
+buble_sort(H, [Second, Third| []], Res):-
+    sort_two(Second, Third, Min, Max),
+    append(H, [Max], H_with_max),
+    append(H_with_max, [Min], H_with_min),
+    % Res = H_with_min.
+    buble_sort(H_with_min, Res).
+    
+buble_sort(H, [Second, Third| T], Res):-
+    sort_two(Second, Third, Min, Max),
+    append(H, [Max], H_with_max),
+    buble_sort(H_with_max, [Min|T], Res).
