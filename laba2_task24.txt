@@ -1,0 +1,13 @@
+get_last_with_restList([Last], Last, []).
+get_last_with_restList([H|T], Last, [H|Rest]):-
+    get_last_with_restList(T, Last, Rest).
+
+shift(List, [Last|RestList]):-
+    get_last_with_restList(List, Last, RestList).
+
+shift_n(List, List, 0).
+shift_n(List, Res, N):-
+    N > 0,
+    N_low is N - 1,
+    shift(List, Res_low),
+    shift_n(Res_low, Res, N_low).
