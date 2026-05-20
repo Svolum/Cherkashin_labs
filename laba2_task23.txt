@@ -1,0 +1,17 @@
+max(X, Y, X) :- X > Y.
+max(X, Y, Y) :- X =< Y.
+
+find_max([Max], Max).
+find_max([H|T], Max):-
+    find_max(T, Max2),
+    max(H, Max2, Max).
+
+del_max(List, Res):-
+    find_max(List, Max),
+    exclude_el(List, Max, Res).
+
+
+exclude_el([], _, []).
+exclude_el([H|T], El, Res):-
+    exclude_el(T, El, Res2),
+    (H =\= El ->  Res = [H|Res2]; Res = Res2).
