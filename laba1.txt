@@ -1,0 +1,32 @@
+dog(flash).
+dog(rover).
+cat(bootsy).
+horse(star).
+black(flash).
+brown(bootsy).
+ginger(rover).
+white(star).
+
+pet_animal(Animal):-
+    cat(Animal);
+    dog(Animal).
+animal(Animal):-
+    pet_animal(Animal);
+    horse(Animal).
+
+tom_dog(tom, Dog):-
+    dog(Dog),
+    \+ black(Dog).
+kates_animal(kate, Animal):-
+    horse(Animal);
+    black(Animal).
+
+own(Owner, Animal):-
+    tom_dog(Owner, Animal);
+    kates_animal(Owner, Animal).
+owner(Owner):-own(Owner,_).
+
+not_white_animal_owner(Owner, Animal):-
+    own(Owner, Animal),
+    animal(Animal),
+    \+ white(Animal).
